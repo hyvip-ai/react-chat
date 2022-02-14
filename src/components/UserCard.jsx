@@ -9,10 +9,12 @@ function UserCard({ user }) {
   const chatRef = firestore.collection("Chats");
   const [chatData, loading] = useCollectionData(chatRef);
   const createChat = () => {
+    let chatId = uuid()
     firestore
       .collection("Chats")
-      .doc(uuid())
+      .doc(chatId)
       .set({
+        id:chatId,
         users: [localStorage.getItem("myUid"), user.uid],
       });
     myNavigate();

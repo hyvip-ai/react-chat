@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import { v4 as uuid } from "uuid";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
 import { useParams } from "react-router-dom";
 import { firestore } from "../firebase_config/firebase";
 import { getRequiredDocument } from "../function/getList";
@@ -11,18 +11,14 @@ function Chat() {
   const userRef = firestore.collection("Users").doc(uid);
   const [data] = useDocumentData(userRef);
   const [docId, setDocId] = useState("");
+  const chatRef = firestore.collection("Chats")
+  const [chats,loading] = useCollectionData(chatRef)
   useEffect(() => {
-    firestore
-      .collection("Chats")
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          getRequiredDocument(doc.data(), localStorage.getItem("myUid"), uid) &&
-            setDocId(doc.id);
-        });
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if(!loading) {
+      let required = getRequiredDocument(chats,localStorage.getItem("myUid"),uid);
+      setDocId(required[0].id)
+    }
+  }, [chats,loading,uid]);
 
   const dummy = useRef();
   const [formValue, setFormValue] = useState("");

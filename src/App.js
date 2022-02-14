@@ -40,7 +40,7 @@ function App() {
               )
             }
           />
-          <Route path="/chat/:uid" element={<Chat />} />
+          <Route path="/chat/:uid" element={<Chat authenticated={authenticated} />} />
           <Route path="/room/:roomId" element={<GroupChat authenticated={authenticated}/>} />
         </Routes>
       </BrowserRouter>

@@ -19,7 +19,11 @@ function chatExist(chats, uid, recipientId) {
 }
 
 function getRequiredDocument(chats, uid, recipientId) {
-  return chats.users.includes(uid) && chats.users.includes(recipientId)?true:false
+  
+  const required = chats.filter(chat=>{
+    return chat.users.includes(uid) && chat.users.includes(recipientId)
+  })
+  return required
 }
 
 export { getUpdatedList, chatExist, getRequiredDocument };
