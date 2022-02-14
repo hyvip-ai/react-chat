@@ -52,7 +52,7 @@ function GroupChat({ authenticated }) {
           <div>
             <div>
               <main>
-                <GroupMessageList docId={roomId} />
+                <GroupMessageList docId={roomId} scrollToBottom={scrollToBottom} />
                 <div style={{marginTop:"15px"}} ref={dummy}></div>
               </main>
             </div>

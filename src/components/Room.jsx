@@ -13,7 +13,6 @@ function Room({ authenticated }) {
       name: room,
       users: [],
     };
-    console.log(roomObject);
     firestore
       .collection("Rooms")
       .doc(roomObject.id)

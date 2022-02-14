@@ -152,6 +152,7 @@ span{
 }
 .room{
   color: white!important;
+  margin-bottom: 10vh;
 }
 .senderData{
   width: 100%;

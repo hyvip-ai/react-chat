@@ -1,15 +1,18 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "../firebase_config/firebase";
 
-function GroupMessageList({ docId }) {
+function GroupMessageList({ docId,scrollToBottom }) {
   const messageRef = firestore
     .collection("Rooms")
     .doc(docId)
     .collection("messages");
     const messagesQuery = messageRef.orderBy('createdAt','asc');
   const [messages, loading] = useCollectionData(messagesQuery);
+  useEffect(()=>{
+    scrollToBottom()
+  },[messages,scrollToBottom])
   return (
     <>
       {!loading ? (
